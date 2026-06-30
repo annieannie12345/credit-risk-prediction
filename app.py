@@ -5,6 +5,7 @@ import streamlit as st
 
 
 MODEL_PATH = "models/best_model.pkl"
+EUR_TO_INR = 107.8565
 
 model = joblib.load(MODEL_PATH)
 
@@ -77,12 +78,12 @@ with col2:
         "Checking Account Balance",
         list(CHECKING_ACCOUNT_OPTIONS.keys())
     )
-    credit_amount = st.number_input(
-        "Loan Amount",
-        min_value=250,
-        max_value=18424,
-        value=3000,
-        step=100
+    loan_amount_inr = st.number_input(
+        "Loan Amount (INR)",
+        min_value=round(250 * EUR_TO_INR),
+        max_value=round(18424 * EUR_TO_INR),
+        value=round(3000 * EUR_TO_INR),
+        step=1000
     )
     duration = st.number_input(
         "Loan Duration",
@@ -97,6 +98,7 @@ job = JOB_OPTIONS[job_label]
 housing = HOUSING_OPTIONS[housing_label]
 saving_accounts = ACCOUNT_OPTIONS[saving_accounts_label]
 checking_account = CHECKING_ACCOUNT_OPTIONS[checking_account_label]
+credit_amount = loan_amount_inr / EUR_TO_INR
 purpose = PURPOSE_OPTIONS[purpose_label]
 
 input_data = pd.DataFrame({
@@ -141,7 +143,7 @@ if st.button("Predict Credit Risk"):
         "Housing Status": [housing_label],
         "Savings Account Balance": [saving_accounts_label],
         "Checking Account Balance": [checking_account_label],
-        "Loan Amount": [credit_amount],
+        "Loan Amount": [f"₹{loan_amount_inr:,.0f}"],
         "Loan Duration": [f"{duration} months"],
         "Loan Purpose": [purpose_label],
     })
