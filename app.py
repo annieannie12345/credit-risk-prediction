@@ -1,4 +1,5 @@
 import joblib
+import numpy as np
 import pandas as pd
 import streamlit as st
 
@@ -16,108 +17,87 @@ st.title("Credit Risk Prediction Engine")
 
 st.subheader("Applicant Details")
 
-JOB_LABELS = {
-    0: "Unskilled / non-resident",
-    1: "Unskilled resident",
-    2: "Skilled employee / official",
-    3: "Highly skilled / management",
+JOB_OPTIONS = {
+    "0 - Unskilled / non-resident": 0,
+    "1 - Unskilled resident": 1,
+    "2 - Skilled employee / official": 2,
+    "3 - Highly skilled / management": 3,
 }
 
-HOUSING_LABELS = {
-    "own": "Own home",
-    "rent": "Rented home",
-    "free": "Free housing",
+HOUSING_OPTIONS = {
+    "Own home": "own",
+    "Rented home": "rent",
+    "Free housing": "free",
 }
 
-ACCOUNT_LABELS = {
-    "little": "Low balance",
-    "moderate": "Moderate balance",
-    "quite rich": "High balance",
-    "rich": "Very high balance",
-    "NA": "No account / unknown",
+ACCOUNT_OPTIONS = {
+    "Low balance": "little",
+    "Moderate balance": "moderate",
+    "High balance": "quite rich",
+    "Very high balance": "rich",
+    "No account / unknown": np.nan,
 }
 
-PURPOSE_LABELS = {
-    "radio/TV": "Electronics / radio / TV",
-    "education": "Education",
-    "furniture/equipment": "Furniture or equipment",
-    "car": "Car",
-    "business": "Business",
-    "domestic appliances": "Home appliances",
-    "repairs": "Repairs",
-    "vacation/others": "Vacation or other",
+CHECKING_ACCOUNT_OPTIONS = {
+    "Low balance": "little",
+    "Moderate balance": "moderate",
+    "High balance": "rich",
+    "No account / unknown": np.nan,
+}
+
+PURPOSE_OPTIONS = {
+    "Electronics / radio / TV": "radio/TV",
+    "Education": "education",
+    "Furniture or equipment": "furniture/equipment",
+    "Car": "car",
+    "Business": "business",
+    "Home appliances": "domestic appliances",
+    "Repairs": "repairs",
+    "Vacation or other": "vacation/others",
 }
 
 col1, col2 = st.columns(2)
 
 with col1:
-    age = st.number_input(
-        "Applicant age",
-        min_value=18,
-        max_value=100,
-        value=30,
-        help="Age of the person applying for the loan.",
+    age = st.number_input("Applicant Age", min_value=19, max_value=75, value=30)
+    sex_label = st.selectbox("Gender", ["Male", "Female"])
+    job_label = st.selectbox(
+        "Job Type",
+        list(JOB_OPTIONS.keys()),
+        index=2
     )
-    sex = st.selectbox(
-        "Applicant gender",
-        ["male", "female"],
-        format_func=lambda value: value.title(),
-    )
-    job = st.selectbox(
-        "Employment skill level",
-        [0, 1, 2, 3],
-        index=2,
-        format_func=lambda value: JOB_LABELS[value],
-        help="German Credit dataset job category. Higher values usually mean higher skill or responsibility.",
-    )
-    housing = st.selectbox(
-        "Housing status",
-        ["own", "rent", "free"],
-        format_func=lambda value: HOUSING_LABELS[value],
-    )
-    saving_accounts = st.selectbox(
-        "Savings account balance",
-        ["little", "moderate", "quite rich", "rich", "NA"],
-        format_func=lambda value: ACCOUNT_LABELS[value],
-        help="Approximate savings account balance category.",
+    housing_label = st.selectbox("Housing Status", list(HOUSING_OPTIONS.keys()))
+    saving_accounts_label = st.selectbox(
+        "Savings Account Balance",
+        list(ACCOUNT_OPTIONS.keys())
     )
 
 with col2:
-    checking_account = st.selectbox(
-        "Checking account balance",
-        ["little", "moderate", "rich", "NA"],
-        index=3,
-        format_func=lambda value: ACCOUNT_LABELS[value],
-        help="Approximate checking account balance category.",
+    checking_account_label = st.selectbox(
+        "Checking Account Balance",
+        list(CHECKING_ACCOUNT_OPTIONS.keys())
     )
     credit_amount = st.number_input(
-        "Requested loan amount",
-        min_value=0,
+        "Loan Amount",
+        min_value=250,
+        max_value=18424,
         value=3000,
-        step=100,
-        help="Total amount of credit requested by the applicant.",
+        step=100
     )
     duration = st.number_input(
-        "Loan duration in months",
-        min_value=1,
-        max_value=100,
-        value=24,
-        help="Number of months over which the loan will be repaid.",
+        "Loan Duration",
+        min_value=4,
+        max_value=72,
+        value=24
     )
-    purpose = st.selectbox(
-        "Loan purpose",
-        [
-            "radio/TV",
-            "education",
-            "furniture/equipment",
-            "car",
-            "business",
-            "domestic appliances",
-            "repairs",
-            "vacation/others"
-        ],
-        format_func=lambda value: PURPOSE_LABELS[value],
-    )
+    purpose_label = st.selectbox("Loan Purpose", list(PURPOSE_OPTIONS.keys()))
+
+sex = sex_label.lower()
+job = JOB_OPTIONS[job_label]
+housing = HOUSING_OPTIONS[housing_label]
+saving_accounts = ACCOUNT_OPTIONS[saving_accounts_label]
+checking_account = CHECKING_ACCOUNT_OPTIONS[checking_account_label]
+purpose = PURPOSE_OPTIONS[purpose_label]
 
 input_data = pd.DataFrame({
     "Age": [age],
@@ -154,15 +134,15 @@ if st.button("Predict Credit Risk"):
         st.success("Business Decision: Approve Loan Application")
 
     st.subheader("Input Summary")
-    friendly_input_data = pd.DataFrame({
-        "Applicant age": [age],
-        "Applicant gender": [sex.title()],
-        "Employment skill level": [JOB_LABELS[job]],
-        "Housing status": [HOUSING_LABELS[housing]],
-        "Savings account balance": [ACCOUNT_LABELS[saving_accounts]],
-        "Checking account balance": [ACCOUNT_LABELS[checking_account]],
-        "Requested loan amount": [credit_amount],
-        "Loan duration in months": [duration],
-        "Loan purpose": [PURPOSE_LABELS[purpose]],
+    display_data = pd.DataFrame({
+        "Applicant Age": [age],
+        "Gender": [sex_label],
+        "Job Type": [job_label],
+        "Housing Status": [housing_label],
+        "Savings Account Balance": [saving_accounts_label],
+        "Checking Account Balance": [checking_account_label],
+        "Loan Amount": [credit_amount],
+        "Loan Duration": [f"{duration} months"],
+        "Loan Purpose": [purpose_label],
     })
-    st.dataframe(friendly_input_data, use_container_width=True)
+    st.dataframe(display_data, use_container_width=True)
