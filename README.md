@@ -25,26 +25,6 @@ an easy-to-use Streamlit dashboard.
 > system. A real lending system would also need policy validation, fairness
 > testing, legal review, monitoring, and governance.
 
-## Dataset
-
-The app uses a public credit-risk style dataset with applicant and loan fields
-such as:
-
-- applicant age and income
-- employment length
-- home ownership
-- loan intent
-- loan grade
-- loan amount and interest rate
-- previous default status
-- credit history length
-- loan status target
-
-The target column is `loan_status`:
-
-- `0` = non-default
-- `1` = default / high-risk loan
-
 ## Model performance
 
 Random Forest is currently deployed.
@@ -59,43 +39,6 @@ Random Forest is currently deployed.
 
 The threshold is optimized for credit-risk decision support instead of simply
 using the default `0.5` cutoff.
-
-## How the project works
-
-1. Load and validate the dataset.
-2. Clean duplicate and impossible records.
-3. Engineer useful features such as monthly income, interest proxy, age bands,
-   and income bands.
-4. Preprocess numerical and categorical columns safely inside a scikit-learn
-   pipeline.
-5. Train and compare multiple machine-learning models.
-6. Select the deployed model and threshold.
-7. Generate model reports, ROC curves, confusion matrices, and SHAP outputs.
-8. Serve predictions through the Streamlit dashboard.
-
-## Project structure
-
-```text
-credit_risk_prediction_engine/
-├── app.py                         # Streamlit dashboard
-├── assets/                        # README screenshots
-│   ├── 1.png
-│   └── 2.png
-├── data/
-│   └── credit_risk_dataset.csv    # Source dataset
-├── reports/                       # Evaluation reports and plots
-├── src/credit_risk/
-│   ├── data.py                    # Data loading and validation
-│   ├── features.py                # Feature engineering
-│   ├── modeling.py                # Models, metrics, threshold selection
-│   ├── explain.py                 # SHAP explainability
-│   ├── predict.py                 # Prediction helper
-│   └── train.py                   # Training script
-├── tests/
-│   └── test_core.py               # Basic automated tests
-├── requirements.txt
-└── pyproject.toml
-```
 
 ## How to run locally
 
