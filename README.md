@@ -40,47 +40,6 @@ Random Forest is currently deployed.
 The threshold is optimized for credit-risk decision support instead of simply
 using the default `0.5` cutoff.
 
-## How to run locally
-
-Clone the repository and enter the project folder:
-
-```bash
-git clone git@github.com:annieannie12345/credit-risk-prediction.git
-cd credit-risk-prediction
-```
-
-Create and activate a virtual environment:
-
-```bash
-python3 -m venv .venv
-source .venv/bin/activate
-```
-
-Install dependencies:
-
-```bash
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-```
-
-Train or refresh the model reports:
-
-```bash
-python -m credit_risk.train --model "Random Forest"
-```
-
-Run the Streamlit app:
-
-```bash
-streamlit run app.py
-```
-
-Then open:
-
-```text
-http://localhost:8501
-```
-
 ## How to use the app
 
 1. Open the **Applicant Scorer** tab.
