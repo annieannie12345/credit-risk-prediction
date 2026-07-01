@@ -40,39 +40,6 @@ Random Forest is currently deployed.
 The threshold is optimized for credit-risk decision support instead of simply
 using the default `0.5` cutoff.
 
-## How to use the app
-
-1. Open the **Applicant Scorer** tab.
-2. Enter applicant details such as age, income, home ownership, loan amount,
-   loan intent, loan grade, interest rate, previous default status, and credit
-   history length.
-3. Click **Calculate risk**.
-4. Review the predicted default probability and recommendation.
-5. Check the SHAP explanation to understand the main factors affecting the
-   prediction.
-
-## Run tests
-
-```bash
-pytest -q
-```
-
-Expected result:
-
-```text
-3 passed
-```
-
-## Key learning points
-
-This project demonstrates:
-
-- end-to-end machine-learning project structure
-- model comparison and evaluation
-- threshold tuning for business-sensitive classification
-- Streamlit dashboard development
-- SHAP-based model explainability
-- reproducible training and testing workflow
 
 ## Interview-ready summary
 
@@ -81,3 +48,8 @@ The project compares Logistic Regression, Random Forest, XGBoost, and CatBoost,
 deploys Random Forest based on the strongest evaluation results, tunes the
 classification threshold for lending risk, explains predictions with SHAP, and
 serves the full workflow through a Streamlit dashboard.
+
+## Author
+
+Anisha Gupta
+Mtech (AI)
