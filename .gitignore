@@ -1,12 +1,8 @@
-.DS_Store
+.venv/
 __pycache__/
 *.py[cod]
-.ipynb_checkpoints/
-
-venv/
-.venv/
-env/
-
-catboost_info/
-
+.pytest_cache/
+.DS_Store
 .streamlit/secrets.toml
+artifacts/*.joblib
+*.egg-info/

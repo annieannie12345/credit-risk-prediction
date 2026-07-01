@@ -1,0 +1,49 @@
+{
+  "selected_model": "Random Forest",
+  "cost_recommended_model": "Random Forest",
+  "threshold": 0.29,
+  "cv_metrics": {
+    "threshold": 0.29,
+    "accuracy": 0.8595286766691094,
+    "precision_bad": 0.6346255974508762,
+    "recall_bad": 0.8430335097001763,
+    "f1_bad": 0.724132707165581,
+    "roc_auc": 0.9315224323353201,
+    "pr_auc": 0.8817767416362071,
+    "specificity_good": 0.8641457274028731,
+    "false_approvals": 890,
+    "false_rejections": 2752,
+    "business_cost": 7202.0,
+    "tn": 17505,
+    "fp": 2752,
+    "fn": 890,
+    "tp": 4780
+  },
+  "test_metrics": {
+    "threshold": 0.29,
+    "accuracy": 0.8639308855291576,
+    "precision_bad": 0.6414994720168955,
+    "recall_bad": 0.8568406205923836,
+    "f1_bad": 0.7336956521739131,
+    "roc_auc": 0.9372958431094683,
+    "pr_auc": 0.8928575133575366,
+    "specificity_good": 0.865916271721959,
+    "false_approvals": 203,
+    "false_rejections": 679,
+    "business_cost": 1694.0,
+    "tn": 4385,
+    "fp": 679,
+    "fn": 203,
+    "tp": 1215
+  },
+  "dataset_profile": {
+    "rows": 32409,
+    "columns": 12,
+    "default_rate": 0.2187046807985436,
+    "duplicate_rows_after_cleaning": 0,
+    "missing_by_column": {
+      "person_emp_length": 887,
+      "loan_int_rate": 3094
+    }
+  }
+}
