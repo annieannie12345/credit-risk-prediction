@@ -51,5 +51,5 @@ serves the full workflow through a Streamlit dashboard.
 
 ## Author
 
-Anisha Gupta
-Mtech (AI)
+Anisha Gupta  
+M.Tech Artificial Intelligence
